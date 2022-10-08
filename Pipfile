@@ -8,6 +8,8 @@ requests = "*"
 streamlit = "*"
 pandas = "*"
 numpy = "*"
+pydeck = "*"
+matplotlib = "*"
 
 [dev-packages]
 
