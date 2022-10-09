@@ -4,10 +4,15 @@ import pandas as pd
 import pydeck as pdk
 import numpy as np
 
+
+st.title("San Francisco Flood Vulnerability Index Visualization Tool")
+
 df_flood = pd.read_csv(r'sf_flood.csv')  # this is the dataset we got from CDC
 df_census = pd.read_csv(r'sf_census.csv')  # this is the dataset we found that has lat and long
 df_census_i = df_census.set_index('GEOID')
 df_flood_i = df_flood.set_index('Census Blockgroup')
+
+
 
 # df_flood.shape
 # df_census.shape
@@ -191,6 +196,8 @@ r = (
     ))
 
 df_view = df_option[['coordinates', str_options[x]]]
+
+
 with col1:
     st.dataframe(df_view)
     #st.map(df_main) #2d map (commented out for now i think 3d is better
@@ -211,3 +218,9 @@ st.download_button(
     file_name='sf_main.csv',
     mime='text/csv',
 )
+
+st.write("Data Sources:")
+st.write("https://data.sfgov.org/")
+st.write("https://www.census.gov/")
+st.write("https://sfclimatehealth.org/")
+st.write("Created by: Anish Toomu, Aidan Maguire, and Christian Lee")
