@@ -30,8 +30,9 @@ df_button = df_main[
 button_options = ['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation',
                   'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone',
                   'FloodHealthIndex']
+
 option = st.selectbox(
-    label="map display",
+    label="Percentage of:",
     options=button_options
 )
 '''
@@ -39,9 +40,13 @@ The column labels are not great as button labels, as they are not very descripti
 also don't have spaces between the words. I can change the button labels later I am just
 dropping this here to remind myself.
 '''
-
-
-df_option = df_main[['lat', 'lon', 'coordinates', option]]
+str_options = ['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation', 'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone', 'FloodHealthIndex']
+x = 0
+for i in button_options:
+  if i == option:
+    break
+  x += 1
+df_option = df_main[['lat', 'lon', 'coordinates', str_options[x]]]
 
 midpoint = (np.average(df_option["lat"]), np.average(df_option["lon"]))
 match option:
@@ -193,8 +198,6 @@ r = (
             ),
         ],
     ))
-
-
 with col1:
     st.dataframe(df_option)
     #st.map(df_main) #2d map (commented out for now i think 3d is better
