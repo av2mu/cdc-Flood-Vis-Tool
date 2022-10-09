@@ -24,13 +24,8 @@ df_main = df_main[
 df_main.rename(columns={'INTPTLAT': 'lat', 'INTPTLON': 'lon'}, inplace=True)
 df_main['coordinates'] = df_main.apply(lambda x: (x.lon, x.lat), axis=1)  # idk what this line does lol
 
-df_button = df_main[
-    ['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation', 'Diabetes',
-     'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone', 'FloodHealthIndex']]
-button_options = ['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation',
-                  'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone',
-                  'FloodHealthIndex']
-
+df_button = df_main[['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation', 'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone', 'FloodHealthIndex']]
+button_options = ['Residents under age 18', 'Residents age 65 or over', 'Minority residents (not Hispanic or Latino)', 'Individuals under 200% of poverty rate', 'Individuals over age 25 with high school degree', 'Households that are non-English speaking', 'Land area with 36-inches of sea-level rise', 'Land area with over 6-inches of projected precipitation', 'Diabetes hospitalization rate of adults', 'Mental Health related hospitalization rate', 'Asthma hospitalization rate of adults', 'Residents with a disability', 'Annual housing violations', 'Homeless population', 'Residents who live alone', 'Flood Health Vulnerability Index']
 option = st.selectbox(
     label="Percentage of:",
     options=button_options
@@ -49,39 +44,39 @@ for i in button_options:
 df_option = df_main[['lat', 'lon', 'coordinates', str_options[x]]]
 
 midpoint = (np.average(df_option["lat"]), np.average(df_option["lon"]))
-match option:
+match str_options[x]:
     case 'Children':
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Elderly":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "NonWhite":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Poverty":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Education":
-        df_option['circle_radius'] = df_option[option] * 100 * .5
+        df_option['circle_radius'] = df_option[str_options[x]] * 100 * .5
     case "English":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "SeaLevelRise":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Precipitation":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Diabetes":
-        df_option['circle_radius'] = df_option[option]
+        df_option['circle_radius'] = df_option[str_options[x]]
     case "MentalHealth":
-        df_option['circle_radius'] = df_option[option]
+        df_option['circle_radius'] = df_option[str_options[x]]
     case "Asthma":
-        df_option['circle_radius'] = df_option[option]
+        df_option['circle_radius'] = df_option[str_options[x]]
     case "Disability":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "HousingQuality":
-        df_option['circle_radius'] = df_option[option]
+        df_option['circle_radius'] = df_option[str_options[x]]
     case "Homeless":
-        df_option['circle_radius'] = df_option[option]
+        df_option['circle_radius'] = df_option[str_options[x]]
     case "LivAlone":
-        df_option['circle_radius'] = df_option[option] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "FloodHealthIndex":
-        df_option['circle_radius'] = df_option[option] * .75
+        df_option['circle_radius'] = df_option[str_options[x]] * .75
 
 df_zone1 = df_main[df_main['FloodHealthIndex_Quintiles'] == 1]
 df_zone2 = df_main[df_main['FloodHealthIndex_Quintiles'] == 2]
