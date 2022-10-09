@@ -33,56 +33,16 @@ also don't have spaces between the words. I can change the button labels later I
 dropping this here to remind myself.
 '''
 
-df_option = df_main[['lat', 'lon', option]]
+df_option = df_main[['lat', 'lon','coordinates', option]]
 
 midpoint = (np.average(df_option["lat"]), np.average(df_option["lon"]))
 df_option['circle_radius'] = df_option[option] * 100
-
-with col1:
-    st.dataframe(df_option)
-    #st.map(df_main) #2d map (commented out for now i think 3d is better
-with col2:
-    st.write(
-        pdk.Deck(
-            map_style="mapbox://styles/mapbox/light-v9",
-            initial_view_state={
-                "latitude": midpoint[0],
-                "longitude": midpoint[1],
-                "zoom": 11,
-                "pitch": 50,
-            },
-            layers=[
-                pdk.Layer(
-                    "ScatterplotLayer",
-                    df_option,
-                    pickable=True,
-                    opacity=1.0,
-                    stroked=True,
-                    filled=True,
-                    radius_scale=6,
-                    radius_min_pixels=3,
-                    radius_max_pixels=100,
-                    line_width_min_pixels=1,
-                    get_position="coordinates",
-                    get_radius="circle_radius",
-                    get_fill_color=[255, 0, 0],
-                    get_line_color=[0, 0, 0],
-                ),
-            ],
-        )
-    )
 
 df_zone1 = df_main[df_main['FloodHealthIndex_Quintiles'] == 1]
 df_zone2 = df_main[df_main['FloodHealthIndex_Quintiles'] == 2]
 df_zone3 = df_main[df_main['FloodHealthIndex_Quintiles'] == 3]
 df_zone4 = df_main[df_main['FloodHealthIndex_Quintiles'] == 4]
 df_zone5 = df_main[df_main['FloodHealthIndex_Quintiles'] == 5]
-
-df_zone1
-
-
-
-
 
 
 r = (
@@ -191,11 +151,33 @@ r = (
         get_fill_color=[0, 255, 0],
         get_line_color=[0, 0, 0],
       ),
+      pdk.Layer(
+        "ScatterplotLayer",
+        df_option,
+        pickable=True,
+        opacity=1.0,
+        stroked=True,
+        filled=True,
+        radius_scale=6,
+        radius_min_pixels=3,
+        radius_max_pixels=100,
+        line_width_min_pixels=1,
+        get_position="coordinates",
+        get_radius="circle_radius",
+        get_fill_color=[255, 0, 0],
+        get_line_color=[0, 0, 0],
+      ),
       
     ],
 ))
 
-st.pydeck_chart(r)
+
+with col1:
+    st.dataframe(df_option)
+    #st.map(df_main) #2d map (commented out for now i think 3d is better
+with col2:
+    st.pydeck_chart(r)
+
 
 @st.cache
 def convert_df_to_csv(df):
