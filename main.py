@@ -43,7 +43,7 @@ df_zone2 = df_main[df_main['FloodHealthIndex_Quintiles'] == 2]
 df_zone3 = df_main[df_main['FloodHealthIndex_Quintiles'] == 3]
 df_zone4 = df_main[df_main['FloodHealthIndex_Quintiles'] == 4]
 df_zone5 = df_main[df_main['FloodHealthIndex_Quintiles'] == 5]
-
+zone_radius:int = 50
 
 r = (
   pdk.Deck(
@@ -67,7 +67,7 @@ r = (
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position="coordinates",
-        get_radius= "circle_radius",
+        get_radius= zone_radius,
         get_fill_color=[255, 0, 0],
         get_line_color=[0, 0, 0],
       ),
@@ -83,7 +83,7 @@ r = (
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position="coordinates",
-        get_radius= "circle_radius",
+        get_radius= zone_radius,
         get_fill_color=[255, 0, 0],
         get_line_color=[0, 0, 0],
       ),
@@ -99,7 +99,7 @@ r = (
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position="coordinates",
-        get_radius= "circle_radius",
+        get_radius= zone_radius,
         get_fill_color=[255, 153, 0],
         get_line_color=[0, 0, 0],
       ),
@@ -115,7 +115,7 @@ r = (
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position="coordinates",
-        get_radius= "circle_radius",
+        get_radius= "zone_radius",
         get_fill_color=[255, 255, 0],
         get_line_color=[0, 0, 0],
       ),
@@ -131,7 +131,7 @@ r = (
         radius_max_pixels=100,
         line_width_min_pixels=1,
         get_position="coordinates",
-        get_radius= "circle_radius",
+        get_radius= zone_radius,
         get_fill_color=[153, 255, 0],
         get_line_color=[0, 0, 0],
       ),
