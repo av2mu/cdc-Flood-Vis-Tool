@@ -16,6 +16,7 @@ col1, col2 = st.columns(2)
 df_main = df_flood.merge(df_census, left_on='Census Blockgroup',
                          right_on='GEOID')  # merging datasets and dropping unneeded features
 df_main = df_main.drop(["data_as_of", "data_loaded_at", "multipolygon"], axis=1)
+
 df_main = df_main[
     ['Census Blockgroup', 'INTPTLAT', 'INTPTLON', 'Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English',
      'Elevation', 'SeaLevelRise', 'Precipitation', 'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality',
@@ -38,6 +39,7 @@ The column labels are not great as button labels, as they are not very descripti
 also don't have spaces between the words. I can change the button labels later I am just
 dropping this here to remind myself.
 '''
+
 
 df_option = df_main[['lat', 'lon', 'coordinates', option]]
 
@@ -192,9 +194,11 @@ r = (
         ],
     ))
 
+
 with col1:
     st.dataframe(df_option)
-    # st.map(df_main) #2d map (commented out for now i think 3d is better
+    #st.map(df_main) #2d map (commented out for now i think 3d is better
+    
 with col2:
     st.pydeck_chart(r)
 
