@@ -30,11 +30,7 @@ option = st.selectbox(
     label="Percentage of:",
     options=button_options
 )
-'''
-The column labels are not great as button labels, as they are not very descriptive and 
-also don't have spaces between the words. I can change the button labels later I am just
-dropping this here to remind myself.
-'''
+
 str_options = ['Children', 'Elderly', 'NonWhite', 'Poverty', 'Education', 'English', 'SeaLevelRise', 'Precipitation', 'Diabetes', 'MentalHealth', 'Asthma', 'Disability', 'HousingQuality', 'Homeless', 'LivAlone', 'FloodHealthIndex']
 x = 0
 for i in button_options:
@@ -50,7 +46,7 @@ match str_options[x]:
     case "Elderly":
         df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "NonWhite":
-        df_option['circle_radius'] = df_option[str_options[x]] * 100
+        df_option['circle_radius'] = df_option[str_options[x]] * 50
     case "Poverty":
         df_option['circle_radius'] = df_option[str_options[x]] * 100
     case "Education":
@@ -99,8 +95,8 @@ r = (
                 "ScatterplotLayer",
                 df_zone5,
                 pickable=True,
-                opacity=0.0,
-                stroked=True,
+                opacity=0.3,
+                stroked=False,
                 filled=True,
                 radius_scale=6,
                 radius_min_pixels=3,
@@ -124,7 +120,7 @@ r = (
                 line_width_min_pixels=1,
                 get_position="coordinates",
                 get_radius=zone_radius,
-                get_fill_color=[255, 0, 0],
+                get_fill_color=[227, 74, 50],
                 get_line_color=[0, 0, 0],
             ),
             pdk.Layer(
@@ -140,7 +136,7 @@ r = (
                 line_width_min_pixels=1,
                 get_position="coordinates",
                 get_radius=zone_radius,
-                get_fill_color=[255, 153, 0],
+                get_fill_color=[252, 141, 0],
                 get_line_color=[0, 0, 0],
             ),
             pdk.Layer(
@@ -156,7 +152,7 @@ r = (
                 line_width_min_pixels=1,
                 get_position="coordinates",
                 get_radius=zone_radius,
-                get_fill_color=[255, 255, 0],
+                get_fill_color=[255, 201, 139],
                 get_line_color=[0, 0, 0],
             ),
             pdk.Layer(
@@ -172,7 +168,7 @@ r = (
                 line_width_min_pixels=1,
                 get_position="coordinates",
                 get_radius=zone_radius,
-                get_fill_color=[153, 255, 0],
+                get_fill_color=[255, 240, 218],
                 get_line_color=[0, 0, 0],
             ),
             pdk.Layer(
@@ -193,8 +189,10 @@ r = (
             ),
         ],
     ))
+
+df_view = df_option[['coordinates', str_options[x]]]
 with col1:
-    st.dataframe(df_option)
+    st.dataframe(df_view)
     #st.map(df_main) #2d map (commented out for now i think 3d is better
     
 with col2:
